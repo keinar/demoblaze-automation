@@ -1,14 +1,40 @@
-import { Page } from "@playwright/test";
+import { Locator, Page, test, expect } from "@playwright/test";
 
 
-export class BasePage {
+export abstract class BasePage {
     readonly page: Page;
 
     constructor(page: Page) {
         this.page = page;
     }
 
-    async navigateTo(path: string) {
-        await this.page.goto(path);
+    protected async navigateTo(path: string) {
+        await test.step(`Navigate to ${path}`, async () => {
+            await this.page.goto(path, { waitUntil: 'domcontentloaded' });
+        });
+    }
+
+    protected async getElementText(locator: Locator) {
+        return await test.step(`Get text of element: ${locator}`, async () => {
+            return await locator.textContent();
+        });
+    }
+
+    protected async validateElementText(locator: Locator, expectedText: string) {
+        await test.step(`Validate the element contains text: ${expectedText}`, async () => {
+            await expect(locator).toContainText(expectedText);
+        });
+    }
+
+    protected async clickElement(locator: Locator) {
+        await test.step(`Click element: ${locator}`, async () => {
+            await locator.click();
+        });
+    }
+
+    protected async fillElement(locator: Locator, value: string) {
+        await test.step(`Fill field ${locator} with value: ${value}`, async () => {
+            await locator.fill(value);
+        });
     }
 }
