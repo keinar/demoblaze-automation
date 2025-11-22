@@ -35,4 +35,9 @@ test.describe('Product Catalog Tests', () => {
         await productPage.validateProductPrice(EXPECTED_PRODUCTS[0].price);
         await productPage.validateProductDescription(EXPECTED_PRODUCTS[0].description!);
     });
+
+    test('Add a product to the cart and verify success alert', async () => {
+        await homePage.enterProductDetails(EXPECTED_PRODUCTS[0].name);
+        await productPage.addProductToCartAndVerify();
+    });
 });

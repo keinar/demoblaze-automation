@@ -41,22 +41,13 @@ export class ProductPage extends BasePage {
         });
     }
 
-    async addProductToCart() {
-        await test.step('Add product to cart', async () => {
+    async addProductToCartAndVerify() {
+        await test.step('Add product to cart and verify success alert', async () => {
+            const dialogPromise = this.page.waitForEvent('dialog');
             await this.clickElement(this.addToCartButton);
-            await this.page.waitForLoadState('domcontentloaded');
-        });
-    }
-
-    async validateAddToCartSuccessAlert() {
-        await test.step('Validate add to cart success alert', async () => {
-            this.page.on('dialog', async dialog => {
-                expect(dialog.message()).toContain('Product added');
-                await dialog.accept();
-            });
+            const dialog = await dialogPromise;
+            expect(dialog.message()).toContain('Product added');
+            await dialog.accept();
         });
     }
 }
-
-
-

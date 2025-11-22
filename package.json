@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
+    "api": "json-server --watch db.json --port 3000",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test tests/ui",
     "test:api": "playwright test tests/api",
@@ -21,6 +22,7 @@
     "@types/node": "^24.10.0",
     "allure-playwright": "^3.4.2",
     "dotenv": "^17.2.3",
+    "json-server": "^1.0.0-beta.3",
     "mongodb": "^7.0.0"
   }
 }
