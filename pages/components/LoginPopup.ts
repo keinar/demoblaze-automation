@@ -1,27 +1,18 @@
-import { Locator, expect, test } from '@playwright/test';
+import { Locator, expect, test, Page } from '@playwright/test';
 import { BasePage } from '../../pages/basePage';
-import { LOGIN_POPUP_SELECTORS } from '../../consts/selectors';
 
 export class LoginPopup extends BasePage {
+    readonly openLoginLink: Locator;
+    readonly usernameInput: Locator;
+    readonly passwordInput: Locator;
+    readonly loginButton: Locator;
 
-    private get openLoginLink(): Locator {
-        return this.page.locator(LOGIN_POPUP_SELECTORS.LINK_TO_OPEN_LOGIN);
-    }
-
-    private get usernameInput(): Locator {
-        return this.page.locator(LOGIN_POPUP_SELECTORS.USERNAME_INPUT);
-    }
-
-    private get passwordInput(): Locator {
-        return this.page.locator(LOGIN_POPUP_SELECTORS.PASSWORD_INPUT);
-    }
-
-    private get loginButton(): Locator {
-        return this.page.locator(LOGIN_POPUP_SELECTORS.LOGIN_BUTTON);
-    }
-
-    private get openLoginModal(): Locator {
-        return this.page.locator(LOGIN_POPUP_SELECTORS.LINK_TO_OPEN_LOGIN)
+    constructor(page: Page) {
+        super(page);
+        this.openLoginLink = page.locator('#login2');
+        this.usernameInput = page.locator('#loginusername');
+        this.passwordInput = page.locator('#loginpassword');
+        this.loginButton = page.locator('#logInModal .btn-primary');
     }
 
     async open() {
@@ -33,7 +24,10 @@ export class LoginPopup extends BasePage {
 
     async login(username: string, password: string): Promise<void> {
         await test.step('Login to website', async() => {
-            await this.clickElement(this.openLoginModal)
+            // Ensure modal is open before typing
+            if (!(await this.usernameInput.isVisible())) {
+                 await this.clickElement(this.openLoginLink);
+            }
             await this.usernameInput.fill(username);
             await this.passwordInput.fill(password);
             await this.loginButton.click();
@@ -42,7 +36,11 @@ export class LoginPopup extends BasePage {
     
     async loginWithInvalidCredentials(username: string, password: string, expectedError: string): Promise<void> {
         await test.step(`Attempt login with invalid credentials: ${username}`, async() => {
-            await this.clickElement(this.openLoginModal)
+
+            if (!(await this.usernameInput.isVisible())) {
+                await this.clickElement(this.openLoginLink);
+           }
+            
             await this.usernameInput.fill(username);
             await this.passwordInput.fill(password);
             

@@ -1,6 +1,5 @@
 import { test, expect } from '../../fixtures/baseFixture';
 import { Product } from '../../interfaces/product.interface';
-import { ApiUtils } from '../../utils/apiUtils';
 
 test.describe('API Tests for Product Catalog', () => {
     let testProduct: Product;

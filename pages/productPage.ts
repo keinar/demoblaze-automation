@@ -1,26 +1,19 @@
 import { Locator, Page, expect, test } from '@playwright/test';
 import { BasePage } from './basePage';
-import { URLS } from '../consts/urls';
-import { HOME_SELECTORS, PRODUCT_SELECTORS } from '../consts/selectors';
 
 export class ProductPage extends BasePage {
+    readonly productTitle: Locator;
+    readonly productPrice: Locator;
+    readonly productDescription: Locator;
+    readonly addToCartButton: Locator;
 
-    private get productTitle(): Locator {
-        return this.page.locator(PRODUCT_SELECTORS.PRODUCT_NAME_TITLE);
+    constructor(page: Page) {
+        super(page);
+        this.productTitle = page.locator('.product-content h2');
+        this.productPrice = page.locator('.product-content .price-container');
+        this.productDescription = page.locator('[id="myTabContent"] p');
+        this.addToCartButton = page.getByRole('link', { name: 'Add to cart' });
     }
-
-    private get productPrice(): Locator {
-        return this.page.locator(PRODUCT_SELECTORS.PRODUCT_PRICE);
-    }
-
-    private get productDescription(): Locator {
-        return this.page.locator(PRODUCT_SELECTORS.PRODUCT_DESCRIPTION);
-    }
-
-    private get addToCartButton(): Locator {
-        return this.page.getByRole('link', { name: 'Add to cart' });
-    }
-    
 
     async validateProductTitle(expectedTitle: string) {
         await test.step(`Validate product title is: ${expectedTitle}`, async () => {

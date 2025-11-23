@@ -1,12 +1,22 @@
 import { Locator, Page, expect, test } from '@playwright/test';
 import { BasePage } from './basePage';
 import { URLS } from '../consts/urls';
-import { HOME_SELECTORS } from '../consts/selectors';
 
 export class HomePage extends BasePage {
+    readonly productCards: Locator;
+    readonly productTitleName: Locator
+    readonly categoryLink: Locator
+    readonly productPrice: Locator
+    readonly productImage: Locator
 
-    private get productCards(): Locator {
-        return this.page.locator(HOME_SELECTORS.PRODUCT_CARD);
+    constructor(page: Page) {
+        super(page);
+        this.productCards = page.locator('[id="tbodyid"] .card');
+        this.productTitleName = page.locator('.card-title a')
+        this.categoryLink = page.locator('.list-group-item')
+        this.productPrice = page.locator('[class="card-block"] h5')
+        this.productImage = page.locator('.card-img-top')
+
     }
 
     async navigateToHomePage() {
@@ -21,7 +31,7 @@ export class HomePage extends BasePage {
 
     async selectCategory(categoryName: string) {
         await test.step(`Select category: ${categoryName}`, async () => {
-            const categoryLink = this.page.locator(HOME_SELECTORS.CATEGORY_LINK, { hasText: categoryName });
+            const categoryLink = this.categoryLink.filter({ hasText: categoryName });
             await this.clickElement(categoryLink);
         });
     }
@@ -32,9 +42,9 @@ export class HomePage extends BasePage {
         
         for (let i = 0; i < productsCount; i++) {
             const productCard = this.productCards.nth(i);
-            const name = await productCard.locator(HOME_SELECTORS.PRODUCT_NAME).textContent();
-            const price = await productCard.locator(HOME_SELECTORS.PRODUCT_PRICE).textContent();
-            const imageVisible = await productCard.locator(HOME_SELECTORS.PRODUCT_IMAGE).isVisible();
+            const name = await productCard.locator(this.productTitleName).textContent();
+            const price = await productCard.locator(this.productPrice).textContent();
+            const imageVisible = await productCard.locator(this.productImage).isVisible();
             
             products.push({ 
                 name: name?.trim(), 
@@ -47,7 +57,7 @@ export class HomePage extends BasePage {
 
     async enterProductDetails(productName: string) {
         await test.step(`Enter product details for: ${productName}`, async () => {
-            const productLink = this.page.locator(HOME_SELECTORS.PRODUCT_NAME, { hasText: productName });
+            const productLink = this.productTitleName.filter({ hasText: productName });
             await this.clickElement(productLink);
             await this.page.waitForLoadState('domcontentloaded');
         });
