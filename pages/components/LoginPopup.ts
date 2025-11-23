@@ -9,10 +9,10 @@ export class LoginPopup extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.openLoginLink = page.locator('#login2');
+        this.openLoginLink = page.getByRole('link', { name: 'Log in' });
         this.usernameInput = page.locator('#loginusername');
         this.passwordInput = page.locator('#loginpassword');
-        this.loginButton = page.locator('#logInModal .btn-primary');
+        this.loginButton = page.getByRole('button', { name: 'Log in' });
     }
 
     async open() {

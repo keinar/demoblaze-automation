@@ -11,7 +11,7 @@ export class HomePage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.productCards = page.locator('[id="tbodyid"] .card');
+        this.productCards = page.locator('.card');
         this.productTitleName = page.locator('.card-title a')
         this.categoryLink = page.locator('.list-group-item')
         this.productPrice = page.locator('[class="card-block"] h5')

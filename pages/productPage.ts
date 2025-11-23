@@ -9,9 +9,9 @@ export class ProductPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.productTitle = page.locator('.product-content h2');
+        this.productTitle = page.locator('.product-content');
         this.productPrice = page.locator('.product-content .price-container');
-        this.productDescription = page.locator('[id="myTabContent"] p');
+        this.productDescription = page.locator('#myTabContent p');
         this.addToCartButton = page.getByRole('link', { name: 'Add to cart' });
     }
 
