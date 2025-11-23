@@ -1,6 +1,7 @@
 import { test } from "@playwright/test";
 import { APIRequestContext } from "@playwright/test";
 import { URLS } from "../consts/urls";
+import { Product } from "../interfaces/product.interface";
 
 export class ApiUtils {
     readonly request: APIRequestContext;
@@ -16,7 +17,7 @@ export class ApiUtils {
         });
     }
 
-    async addItemToCart(item: object) {
+    async addItemToCart(item: Product) {
         return await test.step('Add item to cart via API', async () => {
             const response = await this.request.post(`${URLS.API_URL}${URLS.API_ENDPOINTS.CART}`, { 
                 data: item 
