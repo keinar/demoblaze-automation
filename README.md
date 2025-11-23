@@ -1,5 +1,7 @@
 # Demoblaze QA Automation Home Task
 
+[![Playwright Tests](https://github.com/keinar/demoblaze-automation/actions/workflows/playwright.yml/badge.svg)](https://github.com/keinar/demoblaze-automation/actions/workflows/playwright.yml)
+
 This repository contains an automated testing suite for the **Demoblaze** e-commerce website (UI) and a Mock API (Backend), developed using **Playwright** with **TypeScript**.
 
 ## Features
