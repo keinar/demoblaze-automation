@@ -39,7 +39,7 @@ test.describe('API Tests for Product Catalog', () => {
         const cartBody = await cartResponse.json();
         expect(cartBody.length).toBeGreaterThan(0);
         
-        const foundItem = cartBody.find((item: any) => item.title === testProduct.title);
+        const foundItem = cartBody.find((item: Product) => item.title === testProduct.title);
         expect(foundItem).toBeTruthy();
         expect(foundItem.price).toBe(testProduct.price);
     });
