@@ -37,22 +37,14 @@ export class HomePage extends BasePage {
     }
 
     async getProductsFromCurrentPage() {
-        const productsCount = await this.productCards.count();
-        const products = [];
-        
-        for (let i = 0; i < productsCount; i++) {
-            const productCard = this.productCards.nth(i);
-            const name = await productCard.locator(this.productTitleName).textContent();
-            const price = await productCard.locator(this.productPrice).textContent();
-            const imageVisible = await productCard.locator(this.productImage).isVisible();
-            
-            products.push({ 
-                name: name?.trim(), 
-                price: price?.trim(),
-                imageVisible 
-            });
-        }
-        return products;
+        const allCards = await this.productCards.all();
+        return Promise.all(allCards.map(async (card) => {
+            return {
+                name: (await card.locator(this.productTitleName).textContent())?.trim(),
+                price: (await card.locator(this.productPrice).textContent())?.trim(),
+                imageVisible: await card.locator(this.productImage).isVisible()
+            };
+        }));
     }
 
     async enterProductDetails(productName: string) {
