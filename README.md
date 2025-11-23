@@ -6,15 +6,17 @@ This repository contains an automated testing suite for the **Demoblaze** e-comm
 
 ## Features
 
-* **UI Automation:** Validates Product Catalog, Product Details, and Cart functionality using the **Page Object Model (POM)** design pattern.
-* **API Automation:** Tests a mock REST API (using `json-server`) including GET, POST, and DELETE operations with strict data validation.
-* **Infrastructure:**
-    * **Custom Fixtures:** Utilizes Playwright's test extension mechanism for clean dependency injection and page initialization.
-    * **BasePage:** Shared logic implementation for robust element handling and reporting.
-    * **Independent Tests:** API tests include automatic cleanup mechanisms (`beforeEach`) to ensure idempotency.
+* **UI Automation:** Robust End-to-End scenarios covering Product Catalog, Cart management, and Authentication flows using the **Page Object Model (POM)**.
+* **API Automation:** REST API testing (CRUD operations) against a local `json-server` with strict data validation and schema checks.
+* **Modern Architecture:**
+    * **Custom Fixtures:** Implementation of Playwright's test extension mechanism for clean dependency injection (no manual page instantiation in tests).
+    * **Constructor-Based Locators:** Optimized POM design where locators are defined strictly in constructors.
+    * **BasePage Abstraction:** Shared logic for element interaction, navigation, and reporting steps.
+    * **Smart Waits:** Usage of `waitForResponse` and `toHaveCount` to handle dynamic content (SPA) without hardcoded sleeps.
 * **CI/CD & Reporting:**
-    * Fully integrated with **GitHub Actions**.
-    * Generates detailed **Allure Reports** automatically deployed to GitHub Pages.
+    * Fully integrated **GitHub Actions** pipeline.
+    * **Allure Reports** generated automatically and deployed to **GitHub Pages**.
+    * Artifact management for test traces and videos on failure.
 
 ## Implemented Bonuses
 
