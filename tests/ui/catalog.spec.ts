@@ -1,26 +1,17 @@
-import { expect, test } from '@playwright/test';
-import { HomePage } from '../../pages/homePage';
-import { ProductPage } from '../../pages/productPage';
+import { test, expect } from '../../fixtures/baseFixture';
 import { CATEGORY_TEST_DATA } from '../../consts/categoriesData';
 import { EXPECTED_PRODUCTS } from '../../consts/expectedProducts';
-import { LoginPopup } from '../../pages/components/LoginPopup';
 import { ERROR_MESSAGES } from '../../consts/errorMessages';
 
 
 test.describe('Product Catalog Tests', () => {
-    let homePage: HomePage;
-    let productPage: ProductPage;
-    let loginPopup: LoginPopup
 
-    test.beforeEach(async ({ page }) => {
-        homePage = new HomePage(page);
-        productPage = new ProductPage(page);
-        loginPopup = new LoginPopup(page);
+    test.beforeEach(async ({ homePage }) => {
         await homePage.navigateToHomePage();
     });
 
     for (const data of CATEGORY_TEST_DATA) {
-        test(`Validate products in category: ${data.categoryName}`, async () => {
+        test(`Validate products in category: ${data.categoryName}`, async ({homePage}) => {
             await homePage.selectCategory(data.categoryName);
             await homePage.waitForProductCount(data.expectedCount);
             const products = await homePage.getProductsFromCurrentPage();
@@ -34,19 +25,19 @@ test.describe('Product Catalog Tests', () => {
         });
     }
 
-    test('Verify that clicking a product navigates to the correct details page', async () => {
+    test('Verify that clicking a product navigates to the correct details page', async ({homePage, productPage}) => {
         await homePage.enterProductDetails(EXPECTED_PRODUCTS[0].name);
         await productPage.validateProductTitle(EXPECTED_PRODUCTS[0].name);
         await productPage.validateProductPrice(EXPECTED_PRODUCTS[0].price);
         await productPage.validateProductDescription(EXPECTED_PRODUCTS[0].description!);
     });
 
-    test('Add a product to the cart and verify success alert', async () => {
+    test('Add a product to the cart and verify success alert', async ({homePage, productPage}) => {
         await homePage.enterProductDetails(EXPECTED_PRODUCTS[0].name);
         await productPage.addProductToCartAndVerify();
     });
 
-    test('Login with invalid credentials', async () => {
+    test('Login with invalid credentials', async ({loginPopup}) => {
         await loginPopup.loginWithInvalidCredentials('invalidUser','invalidPass', ERROR_MESSAGES[0].invalid_credentails)
     });
 });
