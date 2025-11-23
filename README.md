@@ -92,7 +92,7 @@ Open a **new** terminal window and use one of the following commands:
 
 ```bash
 ├── src
-│   ├── consts      # Static data (URLs, Selectors, Expected Data)
+│   ├── consts      # Static data (URLs, Expected Data)
 │   ├── fixtures    # Custom Playwright fixtures (Test Extension)
 │   ├── pages       # Page Object Models (HomePage, ProductPage, BasePage)
 │   └── utils       # Utilities (ApiUtils for backend testing)
@@ -108,4 +108,3 @@ Open a **new** terminal window and use one of the following commands:
 
 1. **Mock API Cleanup:** The API tests are designed to be independent (Isolated). A `beforeEach` hook cleans up the cart in the mock DB before every test run to prevent state leakage between tests.
 2. **Demoblaze Latency:** The demo website (`demoblaze.com`) does not always update the URL immediately upon navigation. The framework uses explicit waits (`waitForResponse`, `waitForEvent`) and network handling strategies to ensure stability and avoid flakiness.
-3. **Selectors:** All selectors are managed in `src/consts/selectors.ts` to avoid hardcoded strings in the test logic, making maintenance easier.
