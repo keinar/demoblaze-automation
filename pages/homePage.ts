@@ -13,12 +13,16 @@ export class HomePage extends BasePage {
         await this.navigateTo(URLS.BASE_URL);
     }
 
+    async waitForProductCount(expectedCount: number) {
+        await test.step(`Wait for product count to be: ${expectedCount}`, async () => {
+            await expect(this.productCards).toHaveCount(expectedCount);
+        });
+    }
+
     async selectCategory(categoryName: string) {
         await test.step(`Select category: ${categoryName}`, async () => {
             const categoryLink = this.page.locator(HOME_SELECTORS.CATEGORY_LINK, { hasText: categoryName });
             await this.clickElement(categoryLink);
-            await this.page.waitForLoadState('domcontentloaded');
-            await this.productCards.first().waitFor({ state: 'visible' });
         });
     }
 

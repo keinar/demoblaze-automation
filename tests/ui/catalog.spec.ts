@@ -22,6 +22,7 @@ test.describe('Product Catalog Tests', () => {
     for (const data of CATEGORY_TEST_DATA) {
         test(`Validate products in category: ${data.categoryName}`, async () => {
             await homePage.selectCategory(data.categoryName);
+            await homePage.waitForProductCount(data.expectedCount);
             const products = await homePage.getProductsFromCurrentPage();
             expect(products.length).toBe(data.expectedCount);
 

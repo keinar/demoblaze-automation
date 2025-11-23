@@ -1,5 +1,5 @@
 export const ERROR_MESSAGES = [
     {
-        invalid_credentails: 'Please fill out Username and Password.'
+        invalid_credentails: 'Wrong password.',
     }
 ]

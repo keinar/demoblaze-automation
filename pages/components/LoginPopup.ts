@@ -20,6 +20,10 @@ export class LoginPopup extends BasePage {
         return this.page.locator(LOGIN_POPUP_SELECTORS.LOGIN_BUTTON);
     }
 
+    private get openLoginModal(): Locator {
+        return this.page.locator(LOGIN_POPUP_SELECTORS.LINK_TO_OPEN_LOGIN)
+    }
+
     async open() {
         await test.step('Open Login Modal', async () => {
             await this.openLoginLink.click();
@@ -29,14 +33,16 @@ export class LoginPopup extends BasePage {
 
     async login(username: string, password: string): Promise<void> {
         await test.step('Login to website', async() => {
+            await this.clickElement(this.openLoginModal)
             await this.usernameInput.fill(username);
             await this.passwordInput.fill(password);
             await this.loginButton.click();
         });
     }
-
+    
     async loginWithInvalidCredentials(username: string, password: string, expectedError: string): Promise<void> {
         await test.step(`Attempt login with invalid credentials: ${username}`, async() => {
+            await this.clickElement(this.openLoginModal)
             await this.usernameInput.fill(username);
             await this.passwordInput.fill(password);
             
