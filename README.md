@@ -22,12 +22,12 @@ This suite includes the optional bonus requirements:
 * **Negative Scenarios:** Handles invalid login attempts (UI) and non-existent resource deletion (API).
 * **Performance Testing:** Measures and asserts API response times.
 
-## 🛠️ Prerequisites
+## Prerequisites
 
 * **Node.js** (v14 or higher)
 * **npm**
 
-## 📦 Installation
+## Installation
 
 1.  Clone the repository:
     ```bash
