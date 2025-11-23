@@ -3,15 +3,19 @@ import { HomePage } from '../../pages/homePage';
 import { ProductPage } from '../../pages/productPage';
 import { CATEGORY_TEST_DATA } from '../../consts/categoriesData';
 import { EXPECTED_PRODUCTS } from '../../consts/expectedProducts';
+import { LoginPopup } from '../../pages/components/LoginPopup';
+import { ERROR_MESSAGES } from '../../consts/errorMessages';
 
 
 test.describe('Product Catalog Tests', () => {
     let homePage: HomePage;
     let productPage: ProductPage;
+    let loginPopup: LoginPopup
 
     test.beforeEach(async ({ page }) => {
         homePage = new HomePage(page);
         productPage = new ProductPage(page);
+        loginPopup = new LoginPopup(page);
         await homePage.navigateToHomePage();
     });
 
@@ -39,5 +43,9 @@ test.describe('Product Catalog Tests', () => {
     test('Add a product to the cart and verify success alert', async () => {
         await homePage.enterProductDetails(EXPECTED_PRODUCTS[0].name);
         await productPage.addProductToCartAndVerify();
+    });
+
+    test('Login with invalid credentials', async () => {
+        await loginPopup.loginWithInvalidCredentials('invalidUser','invalidPass', ERROR_MESSAGES[0].invalid_credentails)
     });
 });

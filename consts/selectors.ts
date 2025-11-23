@@ -13,3 +13,10 @@ export const PRODUCT_SELECTORS = {
     PRODUCT_PRICE: '.product-content .price-container',
     PRODUCT_DESCRIPTION: '[id="myTabContent"] p',
 };
+
+export const LOGIN_POPUP_SELECTORS = {
+    LINK_TO_OPEN_LOGIN: '#login2',
+    USERNAME_INPUT: '#loginusername',
+    PASSWORD_INPUT: '#loginpassword',
+    LOGIN_BUTTON: '#logInModal .btn-primary'
+};

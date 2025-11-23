@@ -45,3 +45,29 @@ test.describe('API Tests for Product Catalog', () => {
         expect(foundItem.price).toBe(testProduct.price);
     });
 });
+
+test.describe('Edge Cases & Performance', () => {
+    let apiUtils: ApiUtils;
+
+    test.beforeEach(async ({ request }) => {
+        apiUtils = new ApiUtils(request);
+        await apiUtils.emptyCart();
+    });
+
+    test('Negative Scenario: Delete a non-existent item from cart', async ({ request }) => {
+        const nonExistentId = 999999;
+        const response = await apiUtils.deleteCartItem(nonExistentId);
+        expect(response.status()).toBe(404);
+    });
+
+    test('Performance Test: Measure response time for fetching all products', async () => {
+        const startTime = Date.now();
+        const response = await apiUtils.getAllProducts();
+        const endTime = Date.now();
+        
+        expect(response.status()).toBe(200);
+        const duration = endTime - startTime;
+        console.log(`Response time for fetching all products: ${duration} ms`);
+        expect(duration).toBeLessThan(500);
+    });
+});
