@@ -94,13 +94,16 @@ Open a **new** terminal window and use one of the following commands:
 
 ```bash
 ├── src
-│   ├── consts      # Static data (URLs, Expected Data)
-│   ├── fixtures    # Custom Playwright fixtures (Test Extension)
-│   ├── pages       # Page Object Models (HomePage, ProductPage, BasePage)
+│   ├── consts      # Configuration (URLs, Selectors, Data, Errors)
+│   ├── fixtures    # Custom Playwright Fixtures (Test Extension)
+│   ├── interfaces  # TypeScript Interfaces (e.g., Product)
+│   ├── pages       # Page Object Models
+│   │   ├── components  # Shared components (e.g., LoginPopup)
+│   │   └── ...         # Main Pages (HomePage, ProductPage)
 │   └── utils       # Utilities (ApiUtils for backend testing)
 ├── tests
-│   ├── ui          # UI Spec files (catalog, cart flows)
-│   └── api         # API Spec files (products, cart CRUD)
+│   ├── ui          # UI Spec files (catalog, cart, login)
+│   └── api         # API Spec files (products, cart CRUD, perf)
 ├── db.json         # Database file for the Mock API
 ├── playwright.config.ts
 └── README.md
