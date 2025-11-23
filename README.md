@@ -2,7 +2,7 @@
 
 This repository contains an automated testing suite for the **Demoblaze** e-commerce website (UI) and a Mock API (Backend), developed using **Playwright** with **TypeScript**.
 
-## 🚀 Features
+## Features
 
 * **UI Automation:** Validates Product Catalog, Product Details, and Cart functionality using the **Page Object Model (POM)** design pattern.
 * **API Automation:** Tests a mock REST API (using `json-server`) including GET, POST, and DELETE operations with strict data validation.
@@ -12,12 +12,12 @@ This repository contains an automated testing suite for the **Demoblaze** e-comm
     * **Independent Tests:** API tests include automatic cleanup mechanisms (`beforeEach`) to ensure idempotency.
     * **Centralized Configuration:** URL and Selector management in separate files.
 
-## 🛠️ Prerequisites
+## Prerequisites
 
 * **Node.js** (v14 or higher)
 * **npm**
 
-## 📦 Installation
+## Installation
 
 1.  Clone the repository:
     ```bash
@@ -36,7 +36,7 @@ This repository contains an automated testing suite for the **Demoblaze** e-comm
     npx playwright install
     ```
 
-## 🏃‍♂️ How to Run
+## How to Run
 
 ### 1. Start the Mock API Server
 Since the backend tests run against a local server, you must start it first.
