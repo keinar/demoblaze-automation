@@ -28,7 +28,6 @@ export abstract class BasePage {
 
     protected async clickElement(locator: Locator) {
         await test.step(`Click element: ${locator}`, async () => {
-            await locator.waitFor({state: "visible"})
             await locator.click();
         });
     }
