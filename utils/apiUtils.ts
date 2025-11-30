@@ -5,6 +5,8 @@ import { Product } from "../interfaces/product.interface";
 
 export class ApiUtils {
     readonly request: APIRequestContext;
+    readonly PRODUCTS = `${URLS.API_URL}${URLS.API_ENDPOINTS.PRODUCTS}` 
+    readonly CART = `${URLS.API_URL}${URLS.API_ENDPOINTS.CART}`
 
     constructor(request: APIRequestContext) {
         this.request = request;
@@ -12,14 +14,14 @@ export class ApiUtils {
 
     async getAllProducts() {
         return await test.step('Get all products from API', async () => {
-            const response = await this.request.get(`${URLS.API_URL}${URLS.API_ENDPOINTS.PRODUCTS}`);
+            const response = await this.request.get(this.PRODUCTS);
             return response;
         });
     }
 
     async addItemToCart(item: Product) {
         return await test.step('Add item to cart via API', async () => {
-            const response = await this.request.post(`${URLS.API_URL}${URLS.API_ENDPOINTS.CART}`, { 
+            const response = await this.request.post(this.CART, { 
                 data: item 
             });
             return response;
@@ -28,14 +30,14 @@ export class ApiUtils {
 
     async getCartItems() {
         return await test.step('Get all items from cart via API', async () => {
-            const response = await this.request.get(`${URLS.API_URL}${URLS.API_ENDPOINTS.CART}`);
+            const response = await this.request.get(this.CART);
             return response;
         });
     }
 
     async deleteCartItem(id: string | number) {
         return await test.step(`DELETE /cart/${id}`, async () => {
-            return await this.request.delete(`${URLS.API_URL}${URLS.API_ENDPOINTS.CART}/${id}`);
+            return await this.request.delete(this.CART);
         });
     }
 

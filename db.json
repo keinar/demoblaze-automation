@@ -16,5 +16,16 @@
       "price": 650
     }
   ],
-  "cart": []
+  "cart": [
+    {
+      "id": "1",
+      "title": "Samsung Galaxy S6",
+      "price": 360
+    },
+    {
+      "id": "1",
+      "title": "Samsung Galaxy S6",
+      "price": 360
+    }
+  ]
 }
